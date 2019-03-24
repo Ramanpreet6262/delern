@@ -1,23 +1,32 @@
 import 'dart:core';
 
+import 'package:built_value/built_value.dart';
 import 'package:delern_flutter/models/base/model.dart';
-import 'package:meta/meta.dart';
 
-class CardReplyModel implements Model {
-  String uid;
-  String deckKey;
-  String cardKey;
-  String key;
-  int levelBefore;
-  bool reply;
-  DateTime timestamp;
+part 'card_reply_model.g.dart';
 
-  CardReplyModel(
+abstract class CardReplyModel
+    implements Model, Built<CardReplyModel, CardReplyModelBuilder> {
+  String get uid;
+  String get deckKey;
+  @nullable
+  String get cardKey;
+  String get key;
+  int get levelBefore;
+  bool get reply;
+  // TODO(ksheremet): initialize
+  DateTime get timestamp;
+
+  /*CardReplyModel(
       {@required this.uid, @required this.deckKey, @required this.cardKey})
       : assert(uid != null),
         assert(deckKey != null) {
     timestamp = DateTime.now();
-  }
+  }*/
+
+  factory CardReplyModel([updates(b)]) = _$CardReplyModel;
+
+  CardReplyModel._();
 
   @override
   String get rootPath => 'views/$uid/$deckKey/$cardKey';
@@ -27,7 +36,8 @@ class CardReplyModel implements Model {
         '$rootPath/$key': {
           'levelBefore': 'L$levelBefore',
           'reply': reply ? 'Y' : 'N',
-          'timestamp': timestamp.toUtc().millisecondsSinceEpoch,
+          'timestamp':
+              (timestamp ?? DateTime.now()).toUtc().millisecondsSinceEpoch,
         },
       };
 }

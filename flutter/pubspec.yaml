@@ -22,6 +22,8 @@ dependencies:
     git:
       url: https://github.com/dotdoom/observable.git
       ref: list-observed-unobserved
+  built_value: ^6.3.2
+  built_collection: ^4.1.0
 
   firebase_auth: ^0.8.1
   firebase_analytics: ^2.0.3
@@ -44,6 +46,8 @@ dev_dependencies:
 
   intl_translation: ^0.17.3
   mockito: ^3.0.0
+  build_runner: ^1.0.0
+  built_value_generator: ^6.3.2
 
 
 # For information on the generic Dart part of this file, see the

@@ -59,8 +59,10 @@ class DeckSettingsBloc extends ScreenBloc {
     }
     t
       ..deleteAll(ScheduledCardModel(deckKey: _deck.key, uid: _deck.uid))
-      ..deleteAll(
-          CardReplyModel(uid: _deck.uid, deckKey: _deck.key, cardKey: null));
+      ..deleteAll(CardReplyModel((b) => b
+        ..uid = _deck.uid
+        ..deckKey = _deck.key
+        ..cardKey = null));
     await t.commit();
   }
 

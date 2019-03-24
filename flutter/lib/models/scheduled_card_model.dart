@@ -159,9 +159,12 @@ class ScheduledCardModel implements Model {
       };
 
   CardReplyModel answer(bool knows, bool learnBeyondHorizon) {
-    var cv = CardReplyModel(uid: uid, cardKey: key, deckKey: deckKey)
+    var cv = CardReplyModel((b) => b
+      ..uid = uid
+      ..cardKey = key
+      ..deckKey = key
       ..reply = knows
-      ..levelBefore = level;
+      ..levelBefore = level);
 
     // if know==true and learnBeyondHorizon==true, the level stays the same
     if (knows && !learnBeyondHorizon) {
