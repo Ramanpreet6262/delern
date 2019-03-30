@@ -18,8 +18,10 @@ environment:
 init:
   - tzutil /s "Central Europe Standard Time"
   - 'echo [timing: %time%] build started'
+  # Automatically convert between CRLF on filesystem and LF in repository.
+  - git config --global core.autocrlf true
   # Allow filenames longer than 260 characters (what year is it?!).
-  - git config --system core.longpaths true
+  - git config --global core.longpaths true
   - git ls-remote %FLUTTER_REPO_URL% %FLUTTER_CHANNEL% > %FLUTTER_CHANNEL_HASH%
 
 cache:
@@ -85,9 +87,6 @@ build_script:
   - 'echo [timing: %time%] Flutter built'
 
 test_script:
-  # Workaround for fastlane generating README.md with LF instead of CRLF.
-  # TODO(dotdoom): file a bug.
-  - git add flutter/fastlane/README.md
   - bundle exec fastlane ensure_clean_git
 
 artifacts:
